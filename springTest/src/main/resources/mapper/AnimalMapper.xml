@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.test.springTest.mybatis.Mybatis_AnimalDAO" >
+  <sql id="BASE_TABLE">
+    animals
+  </sql>
+
+  <sql id="BASE_COLUMN">
+    id,name,count,memo
+  </sql>
+
+  <insert id="insertOne" parameterType="com.test.springTest.entity.AnimalEntity">
+    INSERT INTO
+      <include refid="BASE_TABLE"/>
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      name,count,memo,
+      <!-- <if test="phone != null">
+        phone,
+      </if> -->
+    </trim>
+    <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+      #{name, jdbcType=VARCHAR},#{count, jdbcType=INTEGER},#{memo, jdbcType=VARCHAR},
+      <!-- <if test="phone != null">
+        #{phone, jdbcType=VARCHAR},
+      </if> -->
+    </trim>
+  </insert>
+
+  <select id="getAllByPaging" resultType="com.test.springTest.entity.AnimalEntity">
+      SELECT
+        <include refid="BASE_COLUMN"/>
+      FROM
+        <include refid="BASE_TABLE"/>
+  </select>
+
+</mapper>
